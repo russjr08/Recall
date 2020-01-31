@@ -22,8 +22,9 @@ class Home extends React.Component<DatabaseProp> {
         return (
             <div>
                 <div className="p-1 text-center">
-                    <p>Hello!</p>
-                    <p>You have {items.length} {Util.quantify_string('report', items.length)} to review!</p>
+                    <p>Welcome!</p>
+                    <h4>You have {items.length} {Util.quantify_string('report', items.length)} to review!</h4>
+                    <i>{this.getReportsDueToday()} {Util.quantify_string('report', this.getReportsDueToday())} are due for review today</i>
                 </div>
                 <div className="p-2 align-right">
                 <Link to="/reports/create"><Button variant="primary">Add Report</Button></Link>
@@ -37,6 +38,19 @@ class Home extends React.Component<DatabaseProp> {
         this.props.database.retrieveItems((items) => {
             document.title = `Recall Reports || ${items.length} ${Util.quantify_string('Report', items.length)}`
         })
+    }
+
+    getReportsDueToday() {
+        var dueToday = 0
+        this.props.database.retrieveItems((items) => {
+            items.forEach((item: Report) => {
+                if(Util.isToday(item.due_date)) {
+                    dueToday++
+                }
+            })
+        })
+
+        return dueToday
     }
 
     componentDidUpdate() {
