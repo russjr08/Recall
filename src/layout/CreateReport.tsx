@@ -1,5 +1,6 @@
-import React, { FormEvent } from 'react'
-import DatabaseProp from '../DatabaseProp'
+import React from 'react'
+
+import { DatabaseRouteProp } from '../DatabaseProp'
 
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
@@ -8,7 +9,9 @@ import Calendar, { OnChangeDateCallback } from 'react-calendar'
 import Button from 'react-bootstrap/Button'
 import Report from '../models/Report'
 
-class CreateReport extends React.Component<DatabaseProp> {
+
+
+class CreateReport extends React.Component<DatabaseRouteProp> {
 
     state = {
         selected_date: new Date(),
@@ -49,6 +52,7 @@ class CreateReport extends React.Component<DatabaseProp> {
 
                 <hr/>
                 <Button variant="success" onClick={() => this.submitReport()}>Submit</Button>
+                <Button variant="danger" className='float-right' onClick={() => this.props.history.push('/')}>Cancel</Button>
 
             </div>
         )
@@ -56,7 +60,16 @@ class CreateReport extends React.Component<DatabaseProp> {
 
     submitReport() {
         var report = new Report()
+        var database = this.props.database
+        report.account_id = this.state.account_id
+        report.notes = this.state.notes
+        report.due_date = this.state.selected_date
+
         console.log(`Submitting Report: ${report.id}`)
+        console.log(`Report data: `, report)
+        database.addItem(report, () => {
+            this.props.history.push('/')
+        })
     }
 
 }
