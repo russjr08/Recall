@@ -72,7 +72,8 @@ class ReportsTable extends React.Component<DatabaseProp> {
     renderTableItems() {
         var elements: JSX.Element[] = []
         this.props.database.retrieveItems((items: Array<Report>) => {
-           items.forEach((item: Report) => {
+            items.sort(this.sortReportsByDueDate)
+            items.forEach((item: Report) => {
             elements.push(
                 <tr key={item.id}>
                     <td>{item.account_id}</td>
@@ -86,6 +87,17 @@ class ReportsTable extends React.Component<DatabaseProp> {
 
         return elements
     }
+
+    sortReportsByDueDate: (a: Report, b: Report) => number =
+    function(a: Report, b: Report): number { 
+        if(a.due_date > b.due_date) {
+            return 1
+        } else if(a.due_date < b.due_date) {
+            return -1
+        } else {
+            return 0
+        }
+    };
 
     removeItemSelected(item_id: string) {
         this.props.database.removeItem(item_id)
