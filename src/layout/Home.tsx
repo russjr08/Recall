@@ -66,7 +66,7 @@ class ReportsTable extends React.Component<DatabaseProp> {
     render() {
         return (
             <div>
-                <Table striped bordered>
+                <Table variant="dark" striped bordered>
                     <thead>
                         <tr>
                             <th>Account</th>

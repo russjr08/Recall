@@ -47,7 +47,7 @@ class CreateReport extends React.Component<DatabaseRouteProp> {
                 <div className="calendar-margin">
                     <p>Select A Due Date:</p>
                     <hr/>
-                    <Calendar minDate={new Date()} onChange={this.onDateSelectionChanged}/>
+                    <Calendar minDate={new Date()} maxDate={this.getDateFromToday()} onChange={this.onDateSelectionChanged}/>
                 </div>
 
                 <hr/>
@@ -70,6 +70,12 @@ class CreateReport extends React.Component<DatabaseRouteProp> {
         database.addItem(report, () => {
             this.props.history.push('/')
         })
+    }
+
+    getDateFromToday(): Date {
+        var yearFromNow = new Date()
+        yearFromNow.setFullYear(yearFromNow.getFullYear() + 1)
+        return yearFromNow
     }
 
 }
