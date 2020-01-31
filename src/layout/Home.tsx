@@ -78,13 +78,18 @@ class ReportsTable extends React.Component<DatabaseProp> {
                     <td>{item.account_id}</td>
                     <td>{item.notes}</td>
                     <td>{item.due_date.toDateString()}</td>
-                    <td><Button variant="danger">Remove</Button></td>
+                    <td><Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button></td>
                 </tr>
             )
            })
         })
 
         return elements
+    }
+
+    removeItemSelected(item_id: string) {
+        this.props.database.removeItem(item_id)
+        console.log(`Removing report with ID ${item_id}`)
     }
 
 }
