@@ -21,9 +21,12 @@ class LocalDatabase implements Database {
         this.serializeToStorage()
     }
 
-    addItem(item: Report) {
+    addItem(item: Report, callback?: () => void) {
         this.entries.push(item)
         this.serializeToStorage()
+        if(callback) {
+            callback()
+        }
     }
 
     removeItem(id: string) {
