@@ -13,6 +13,10 @@ class App extends React.Component {
 
   database = new LocalDatabase()
 
+  componentDidMount() {
+    this.database.subscribe(this.onDatabaseUpdated)
+  }
+
   render() {
     return (
       <Router>
@@ -26,6 +30,10 @@ class App extends React.Component {
       </Router>
       
     );
+  }
+
+  onDatabaseUpdated = () => {
+    this.forceUpdate()
   }
 
   
