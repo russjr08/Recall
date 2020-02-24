@@ -6,6 +6,7 @@ import Util from '../util/Util'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import Badge from 'react-bootstrap/Badge'
 
 import { Link } from 'react-router-dom'
 
@@ -88,14 +89,19 @@ class ReportsTable extends React.Component<DatabaseProp> {
         this.props.database.retrieveItems((items: Array<Report>) => {
             items.sort(this.sortReportsByDueDate)
             items.forEach((item: Report) => {
-            elements.push(
-                <tr key={item.id}>
-                    <td>{item.account_id}</td>
-                    <td>{item.notes}</td>
-                    <td>{item.due_date.toDateString()}</td>
-                    <td><Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button></td>
-                </tr>
-            )
+                var date_element = <td>{item.due_date.toDateString()}</td>
+                if(Util.isToday(item.due_date)) {
+                    date_element = <td><Badge variant="light">Due Today</Badge> {item.due_date.toDateString()}</td>
+                }
+
+                elements.push(
+                    <tr key={item.id}>
+                        <td>{item.account_id}</td>
+                        <td>{item.notes}</td>
+                        {date_element}
+                        <td><Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button></td>
+                    </tr>
+                )
            })
         })
 
