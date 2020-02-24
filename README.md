@@ -2,6 +2,24 @@
 
 Recall is a web application that can be utilized to schedule and keep track of follow-up calls for call center agents (or in other words, to _recall_ a follow-up!). 
 
+---
+## Building
+In order to build this locally, you will need to run the following in the cloned directory:
+
+` npm run build`
+
+However, this assumes you are planning on publishing this to the root of your server's directory (`/`). If you plan on publishing to a subdirectory, such as `/recall` you will need to create a `.env.production` file, and include the following in it:
+
+```
+REACT_APP_EXTERNAL_SUBDIRECTORY=/your/subdirectory
+PUBLIC_URL=https://doamin.name/your/subdirectory
+
+```
+
+This will ensure that after running `npm run build` the correct references will be in place to static files, and any routes within the app will be updated to take advantage of this.
+
+On the off chance you are running into the same scenario while building locally, include the same variables in a `.env.development` file.
+
 #### This project was initialized with Create React App, it's default documentation can be found below.
 
 ----
