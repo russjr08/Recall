@@ -12,16 +12,18 @@ import LocalDatabase from './LocalDatabase'
 class App extends React.Component {
 
   database = new LocalDatabase()
+  external_subdirectory = ""
 
   componentDidMount() {
     this.database.subscribe(this.onDatabaseUpdated)
-    console.log(`EXTERNAL_SUBDIRECTORY: ${process.env.EXTERNAL_SUBDIRECTORY}`);
-    console.log(`REACT_APP_EXTERNAL_SUBDIRECTORY: ${process.env.REACT_APP_EXTERNAL_SUBDIRECTORY}`);
+    if(process.env.REACT_APP_EXTERNAL_SUBDIRECTORY !== undefined) {
+      this.external_subdirectory = process.env.REACT_APP_EXTERNAL_SUBDIRECTORY
+    }
   }
 
   render() {
     return (
-      <Router basename={`${process.env.REACT_APP_EXTERNAL_SUBDIRECTORY}`}>
+      <Router basename={`${this.external_subdirectory}`}>
         <div>
           <Header />
           <div className="container">
