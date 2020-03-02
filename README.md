@@ -20,9 +20,22 @@ This will ensure that after running `npm run build` the correct references will 
 
 On the off chance you are running into the same scenario while building locally, include the same variables in a `.env.development` file.
 
-#### This project was initialized with Create React App, it's default documentation can be found below.
+---
+## Environmental Variables
+
+Recall utilizes environmental variables to customize some features, a list of these could be found below:
+
+`REACT_APP_EXTERNAL_CRM_LOOKUP` - If you are using Recall in an environment that has a CRM to look customers up in, you can set this variable to a template link so that Recall can associate account ID links to your CRM. 
+
+Here's an example:
+```REACT_APP_EXTERNAL_CRM_LOOKUP=https://example.com/lookup/%acctid%``` the `%acctid%` portion will be replaced with whatever is inputted as an account ID on each Report, and a link will be generated on the homepage to go to it.
+
+There are also the two listed above in the build instructions, and an example/explanation is given in that section.
 
 ----
+
+#### This project was initialized with Create React App, it's default documentation can be found below.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

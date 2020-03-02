@@ -86,6 +86,13 @@ class ReportsTable extends React.Component<DatabaseProp> {
 
     renderTableItems() {
         var elements: JSX.Element[] = []
+
+        var isExternalCRMEnabled = false
+
+        if(process.env.REACT_APP_EXTERNAL_CRM_LOOKUP !== undefined) {
+            isExternalCRMEnabled = true
+        }
+
         this.props.database.retrieveItems((items: Array<Report>) => {
             items.sort(this.sortReportsByDueDate)
             items.forEach((item: Report) => {
@@ -94,9 +101,15 @@ class ReportsTable extends React.Component<DatabaseProp> {
                     date_element = <td><Badge variant="light">Due Today</Badge> {item.due_date.toDateString()}</td>
                 }
 
+                var acct_id_element = <td>{item.account_id}</td>
+
+                if(isExternalCRMEnabled) {
+                    acct_id_element = <td><a href={process.env.REACT_APP_EXTERNAL_CRM_LOOKUP?.replace("%acctid%", item.account_id)} target={"_blank"}>{item.account_id}</a></td>
+                }
+
                 elements.push(
                     <tr key={item.id}>
-                        <td>{item.account_id}</td>
+                        {acct_id_element}
                         <td>{item.notes}</td>
                         {date_element}
                         <td><Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button></td>
