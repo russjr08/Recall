@@ -11,7 +11,6 @@ In order to build this locally, you will need to run the following in the cloned
 However, this assumes you are planning on publishing this to the root of your server's directory (`/`). If you plan on publishing to a subdirectory, such as `/recall` you will need to create a `.env.production` file, and include the following in it:
 
 ```
-REACT_APP_EXTERNAL_SUBDIRECTORY=/your/subdirectory
 PUBLIC_URL=https://doamin.name/your/subdirectory
 
 ```

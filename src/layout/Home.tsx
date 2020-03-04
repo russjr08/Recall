@@ -103,8 +103,8 @@ class ReportsTable extends React.Component<DatabaseProp> {
 
                 var acct_id_element = <td>{item.account_id}</td>
 
-                if(isExternalCRMEnabled) {
-                    acct_id_element = <td><a href={process.env.REACT_APP_EXTERNAL_CRM_LOOKUP?.replace("%acctid%", item.account_id)} target={"_blank"}>{item.account_id}</a></td>
+                if(isExternalCRMEnabled && process.env.REACT_APP_EXTERNAL_CRM_LOOKUP !== undefined) {
+                    acct_id_element = <td><a href={process.env.REACT_APP_EXTERNAL_CRM_LOOKUP.replace("%acctid%", item.account_id)} target={"_blank"}>{item.account_id}</a></td>
                 }
 
                 elements.push(
