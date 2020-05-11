@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './layout/Header'
 import Home from './layout/Home'
 import CreateReport from './layout/CreateReport'
+import EditReport from './layout/EditReport'
 
 import LocalDatabase from './LocalDatabase'
 
@@ -26,6 +27,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact render={(props) => <Home {...props} database={this.database} />} />
               <Route path="/reports/create" exact render={(props) => <CreateReport {...props} database={this.database} />} />
+              <Route path="/reports/edit/:reportId" render={(props) => <EditReport {...props} database={this.database} />} />
             </Switch>
             
           </div>

@@ -73,7 +73,7 @@ class ReportsTable extends React.Component<DatabaseProp> {
                             <th>Account</th>
                             <th>Notes</th>
                             <th>Due Date</th>
-                            <th>Remove?</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,7 +112,9 @@ class ReportsTable extends React.Component<DatabaseProp> {
                         {acct_id_element}
                         <td>{item.notes}</td>
                         {date_element}
-                        <td><Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button></td>
+                        <td><Link to={`/reports/edit/${item.id}`}><Button variant="secondary">Edit</Button></Link> &nbsp;
+                        <Button variant="danger" onClick={() => this.removeItemSelected(item.id)}>Remove</Button>
+                        </td>
                     </tr>
                 )
            })
