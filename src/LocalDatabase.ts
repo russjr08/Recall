@@ -15,6 +15,28 @@ class LocalDatabase implements Database {
         this.readFromLocalStorage()
     }
 
+    setItem(reportId: string, report: Report, callback?: (() => void) | undefined): void {
+        
+        var entryIndex = this.entries.findIndex(report => report.id === reportId)
+        this.entries[entryIndex] = report
+        this.serializeToStorage()
+        if(callback !== undefined) {
+            callback()
+        }
+    }
+
+    getItemWithId(reportId: string, callback: (report: Report) => void): void {
+        this.readFromLocalStorage()
+        var report = this.entries.find(report => report.id === reportId)
+
+        if(report !== undefined) {
+            callback(report)
+        } else {
+            throw new Error(`Report with id ${reportId}`)
+        }
+
+    }
+
     entries: Array<Report>
     subscribers: Array<() => void>
 
